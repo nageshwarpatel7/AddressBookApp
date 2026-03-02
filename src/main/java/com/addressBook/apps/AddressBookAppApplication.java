@@ -3,8 +3,9 @@ package com.addressBook.apps;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class AddressBookMain {
+@SpringBootApplication
+public class AddressBookAppApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(AddressBookMain.class, args);
+		SpringApplication.run(AddressBookAppApplication.class, args);
 	}
 }

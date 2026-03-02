@@ -19,16 +19,40 @@ public class AddressBookMain {
 				info[6], info[7]));
 	}
 	
+	public static void update(String name, String s) {
+		String info[] = s.split(":");
+		if(info.length!=8) {
+			throw new IllegalArgumentException("Invalid Input");
+		}
+		for(Contact c:contacts) {
+			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
+				c.setFirstName(info[0]);
+				c.setLastName(info[1]);
+				c.setAddress(info[2]);
+				c.setCity(info[3]);
+				c.setState(info[4]);
+				c.setZip(info[5]);
+				c.setPhoneNumber(info[6]);
+				c.setEmail(info[7]);
+				return;
+			}
+		}
+		System.out.println("User not found");		
+	}
+	
 	public static void main(String args[]) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String line;
-		
-		while((line=br.readLine())!=null) {
-			add(line);
-		}
-		for(Contact c: contacts) {
-			System.out.println(c);
-		}
+		add("lucky:pal:berkhera:bhopal:MP:12345:83056144536:pallucky936@gmail.com");
+    	add("Himesh:kurmi:baisa:sagar:MP:462022:89564122121:himeshkurmi@gmail.com");
+    	add("nageshwar:patel:maiyar:katni:MP:11111:7845129654:nageshwar@gmail.com");
+    	for(Contact c : contacts) {
+    		System.out.println(c.toString());
+    	}
+    	
+    	update("himesh kurmi","Himesh:kurmi:Anand Nager:Bhopal:MP:462022:89564122121:himeshkurmi@gmail.com ");
+    	System.out.println("\n");
+    	for(Contact c: contacts) {
+    		System.out.println(c);
+    	}
 	}
 }

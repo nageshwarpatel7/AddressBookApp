@@ -1,19 +1,10 @@
 package com.addressBook.apps;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 public class AddressBookMain {
 	public static void main(String[] args) {
-		
-		Contact sampleContact = new Contact(
-				"Nageshwar",
-				"Patel", 
-				"Press colony, Bhopal", 
-				"Bhopal",
-				"Madhya Pradesh",
-				"462021",
-				"1242345678",
-				"nageshwar@example.com"
-						);
-		System.out.println("Contact created successfully");
-		System.out.println(sampleContact);
+		SpringApplication.run(AddressBookMain.class, args);
 	}
 }

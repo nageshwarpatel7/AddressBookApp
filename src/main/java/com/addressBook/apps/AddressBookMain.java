@@ -40,6 +40,16 @@ public class AddressBookMain {
 		System.out.println("User not found");		
 	}
 	
+	public static void deleteContact(String name) {
+		for(Contact c: contacts) {
+			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
+				System.out.println("Deleted contact: "+c.toString());
+				contacts.remove(c);
+				return;
+			}
+		}
+		System.out.println("User not found");
+	}
 	public static void main(String args[]) throws IOException {
 		
 		add("lucky:pal:berkhera:bhopal:MP:12345:83056144536:pallucky936@gmail.com");
@@ -54,5 +64,12 @@ public class AddressBookMain {
     	for(Contact c: contacts) {
     		System.out.println(c);
     	}
+    	
+    	System.out.println("\n");
+    	deleteContact("himesh kurmi");
+    	for(Contact c: contacts) {
+    		System.out.println(c);
+    	}
+    	
 	}
 }

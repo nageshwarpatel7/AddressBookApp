@@ -8,7 +8,7 @@ import java.util.*;
 import com.addressBook.apps.model.Contact;
 
 public class AddressBookMain {
-	private static  List<Contact> contacts = new ArrayList<>();
+	private static  List<Contact> contacts = new ArrayList<>(); //Helps to add multiple person in the Address book App
 	
 	public static void add(String s) {
 		String[] info = s.split(":");

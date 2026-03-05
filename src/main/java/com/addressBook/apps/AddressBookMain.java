@@ -8,68 +8,90 @@ import java.util.*;
 import com.addressBook.apps.model.Contact;
 
 public class AddressBookMain {
-	private static  List<Contact> contacts = new ArrayList<>(); //Helps to add multiple person in the Address book App
+	private static Map<String, AddressBook> addressBookSystem = new HashMap<>();
+	private static Scanner sc = new Scanner(System.in);
 	
-	public static void add(String s) {
-		String[] info = s.split(":");
-		if(info.length!=8) {
-			throw new IllegalArgumentException("Invalid Input");
-		}
-		contacts.add(new Contact(info[0], info[1], info[2], info[3], info[4], info[5],
-				info[6], info[7]));
-	}
-	
-	public static void update(String name, String s) {
-		String info[] = s.split(":");
-		if(info.length!=8) {
-			throw new IllegalArgumentException("Invalid Input");
-		}
-		for(Contact c:contacts) {
-			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
-				c.setFirstName(info[0]);
-				c.setLastName(info[1]);
-				c.setAddress(info[2]);
-				c.setCity(info[3]);
-				c.setState(info[4]);
-				c.setZip(info[5]);
-				c.setPhoneNumber(info[6]);
-				c.setEmail(info[7]);
-				return;
-			}
-		}
-		System.out.println("User not found");		
-	}
-	
-	public static void deleteContact(String name) {
-		for(Contact c: contacts) {
-			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
-				System.out.println("Deleted contact: "+c.toString());
-				contacts.remove(c);
-				return;
-			}
-		}
-		System.out.println("User not found");
-	}
-	public static void main(String args[]) throws IOException {
+	public static void main(String[] args) {
+		System.out.println("Welcome to Address Book System");
 		
-		add("lucky:pal:berkhera:bhopal:MP:12345:83056144536:pallucky936@gmail.com");
-    	add("Himesh:kurmi:baisa:sagar:MP:462022:89564122121:himeshkurmi@gmail.com");
-    	add("nageshwar:patel:maiyar:katni:MP:11111:7845129654:nageshwar@gmail.com");
-    	for(Contact c : contacts) {
-    		System.out.println(c.toString());
-    	}
-    	
-    	update("himesh kurmi","Himesh:kurmi:Anand Nager:Bhopal:MP:462022:89564122121:himeshkurmi@gmail.com ");
-    	System.out.println("\n");
-    	for(Contact c: contacts) {
-    		System.out.println(c);
-    	}
-    	
-    	System.out.println("\n");
-    	deleteContact("himesh kurmi");
-    	for(Contact c: contacts) {
-    		System.out.println(c);
-    	}
-    	
+		while(true) {
+			System.out.println("\n1. Add New Address Book");
+			System.out.println("2. Access Existing Addess Book");
+			System.out.println("3. Exit");
+			int choice = sc.nextInt();
+			sc.nextLine();
+			
+			switch(choice) {
+			case 1:
+				System.out.print("Enter unique name for new Address Book: ");
+				String name = sc.nextLine();
+				if(addressBookSystem.containsKey(name)) {
+					System.out.println("Address Book with this name already exits");
+				}
+				else {
+					addressBookSystem.put(name, new AddressBook());
+					System.out.println("Address Book "+name+" "+" created.");
+				}
+				break;
+			case 2:
+				System.out.println("Enter Address Book name to access: ");
+				String bookName = sc.nextLine();
+				AddressBook currentBook = addressBookSystem.get(bookName);
+				if(currentBook!=null) {
+					System.out.println("Accessing "+bookName);
+					manageAddressBook(currentBook, bookName);
+				}	
+				else {
+					System.out.println("Address Book not found");
+				}
+				break;
+			case 3:
+				System.exit(0);
+			}
+		}
+	}
+	public static void manageAddressBook(AddressBook book, String bookName) {
+		while(true) {
+			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
+			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Back");
+			int choice = sc.nextInt();
+			sc.nextLine();
+			
+			if(choice==5) 
+				break;
+			
+			switch(choice) {
+			case 1:
+				book.addContact(getContactFromConsole());
+				break;
+			case 2:
+				System.out.println("Enter full name to edit: ");
+				String name = sc.nextLine();
+				
+				System.out.println("Enter updated details separated by ':'");
+				System.out.println("Format: firstName:lastName:address:city:state:zip:phone:email");
+				String data = sc.nextLine();
+				book.update(name, data);
+				break;
+			case 3:
+				System.out.print("Enter full name to delete: ");
+                book.deleteContact(sc.nextLine()); 
+                break;
+            case 4:
+                book.displayContact();
+                break;
+			}
+		}
+	}
+	public static Contact getContactFromConsole() {
+		System.out.print("First Name: "); String fn = sc.nextLine();
+        System.out.print("Last Name: "); String ln = sc.nextLine();
+        System.out.print("Address: "); String addr = sc.nextLine();
+        System.out.print("City: "); String city = sc.nextLine();
+        System.out.print("State: "); String state = sc.nextLine();
+        System.out.print("Zip: "); String zip = sc.nextLine();
+        System.out.print("Phone: "); String ph = sc.nextLine();
+        System.out.print("Email: "); String em = sc.nextLine();
+        return new Contact(fn, ln, addr, city, state, zip, ph, em);
 	}
 }

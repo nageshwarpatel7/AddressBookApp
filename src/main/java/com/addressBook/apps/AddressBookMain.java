@@ -52,11 +52,12 @@ public class AddressBookMain {
 			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
 			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
 					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State"
-					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Sort By Name\n12. Exit");
+					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Sort By Name"
+					+ "\n12. Sort By City\n13. Sort By State\n14. Sort By Zip\n15. Exit");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==12) 
+			if(choice==15) 
 				break;
 			
 			switch(choice) {
@@ -123,6 +124,17 @@ public class AddressBookMain {
             	List<Contact> sortedByName = book.getContactSortedByName();
             	sortedByName.forEach(System.out::println);
             	break;
+            case 12:
+            	List<Contact> sortedByCity = book.getContactSortedByCity();
+            	sortedByCity.forEach(System.out::println);
+            	break;
+            case 13:
+            	List<Contact> sortedByState = book.getContactSortedByState();
+            	sortedByState.forEach(System.out::println);
+            	break;
+            case 14:
+            	List<Contact> sortedByZip = book.getContactSortedByZip();
+            	sortedByZip.forEach(System.out::println);
 			}
 		}
 	}

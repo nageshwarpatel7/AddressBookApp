@@ -51,11 +51,12 @@ public class AddressBookMain {
 		while(true) {
 			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
 			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
-					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State\n9. Back");
+					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State"
+					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Exit");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==9) 
+			if(choice==11) 
 				break;
 			
 			switch(choice) {
@@ -109,6 +110,14 @@ public class AddressBookMain {
             		System.out.println("\nState: "+s);
             		persons.forEach(System.out::println);
             	});
+            	break;
+            case 9:
+            	Map<String, Long> cityCount = book.getContactsByCity();
+            	cityCount.forEach((c,cnt) -> System.out.println(c+" : "+cnt+" persons"));
+            	break;
+            case 10:
+            	Map<String, Long> stateCount = book.getContactsByState();
+            	stateCount.forEach((s, cnt)-> System.out.println(s+" : "+cnt+" persons"));
             	break;
 			}
 		}

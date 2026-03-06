@@ -53,11 +53,12 @@ public class AddressBookMain {
 	public static void manageAddressBook(AddressBook book, String bookName) {
 		while(true) {
 			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
-			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Back");
+			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
+					+ "\n6. Search By State\n7. Back");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==5) 
+			if(choice==7) 
 				break;
 			
 			switch(choice) {
@@ -80,6 +81,25 @@ public class AddressBookMain {
             case 4:
                 book.displayContact();
                 break;
+            case 5:
+            	System.out.println("Enter city: ");
+            	String city = sc.nextLine();
+            	
+            	List<Contact> cityResult = book.searchContactByCity(city);
+            	if(cityResult.isEmpty()) System.out.println("No contact found in this city");
+            	else
+            		cityResult.forEach(System.out::println);
+            	break;
+            case 6:
+            	System.out.println("Enter state");
+            	String state = sc.nextLine();
+            	
+            	List<Contact> stateResult = book.searchContactByState(state);
+            	if(stateResult.isEmpty())
+            		System.out.println("No contact found in this state");
+            	else
+            		stateResult.forEach(System.out::println);
+            	break;
 			}
 		}
 	}

@@ -50,14 +50,12 @@ public class AddressBook {
 	}
 	
 	public  void deleteContact(String name) {
-		for(Contact c: contacts) {
-			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
-				System.out.println("Deleted contact: "+c.toString());
-				contacts.remove(c);
-				return;
-			}
-		}
-		System.out.println("User not found");
+		boolean removed = contacts.removeIf(
+		        c -> name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())
+		    );
+
+		    if(!removed)
+		        System.out.println("User not found");
 	}
 	public List<Contact> searchContactByCity(String city){
 		List<Contact> ans = contacts.stream().filter(c->c.getCity().equalsIgnoreCase(city)).toList();
@@ -81,5 +79,14 @@ public class AddressBook {
 	}
 	public List<Contact> getContactSortedByName(){
 		return contacts.stream().sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)).toList();
+	}
+	public List<Contact> getContactSortedByCity(){
+		return contacts.stream().sorted(Comparator.comparing(Contact::getCity)).toList();
+	}
+	public List<Contact> getContactSortedByState(){
+		return contacts.stream().sorted(Comparator.comparing(Contact::getState)).toList();
+	}
+	public List<Contact> getContactSortedByZip(){
+		return contacts.stream().sorted(Comparator.comparing(Contact::getZip)).toList();
 	}
 }

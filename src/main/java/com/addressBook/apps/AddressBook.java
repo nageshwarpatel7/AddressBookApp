@@ -1,6 +1,7 @@
 package com.addressBook.apps;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.addressBook.apps.model.Contact;
 
@@ -66,4 +67,10 @@ public class AddressBook {
 		return contacts.stream().filter(c->c.getState().equalsIgnoreCase(state)).toList();
 	}
 		
+	public Map<String, List<Contact>> viewContactByCity(){
+		return contacts.stream().collect(Collectors.groupingBy(c->c.getCity(), Collectors.toList()));
+	}
+	public Map<String, List<Contact>> viewContactByState(){
+		return contacts.stream().collect(Collectors.groupingBy(c->c.getState(), Collectors.toList()));
+	}
 }

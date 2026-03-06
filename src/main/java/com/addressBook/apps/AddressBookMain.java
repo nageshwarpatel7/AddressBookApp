@@ -1,8 +1,5 @@
 package com.addressBook.apps;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
 import java.util.*;
 
 import com.addressBook.apps.model.Contact;
@@ -54,11 +51,11 @@ public class AddressBookMain {
 		while(true) {
 			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
 			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
-					+ "\n6. Search By State\n7. Back");
+					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State\n9. Back");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==7) 
+			if(choice==9) 
 				break;
 			
 			switch(choice) {
@@ -99,6 +96,19 @@ public class AddressBookMain {
             		System.out.println("No contact found in this state");
             	else
             		stateResult.forEach(System.out::println);
+            	break;
+            case 7:
+            	Map<String, List<Contact>> cityMap= book.viewContactByCity();
+            	cityMap.forEach((c, persons) -> {System.out.println("\nCity :"+c);
+            	persons.forEach(System.out::println);
+            	});
+            	break;
+            case 8:
+            	Map<String, List<Contact>> stateMap = book.viewContactByState();
+            	stateMap.forEach((s, persons) -> {
+            		System.out.println("\nState: "+s);
+            		persons.forEach(System.out::println);
+            	});
             	break;
 			}
 		}

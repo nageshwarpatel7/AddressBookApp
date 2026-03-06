@@ -52,11 +52,11 @@ public class AddressBookMain {
 			System.out.println("\n--- Managing Address Book: "+bookName+" ---");
 			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
 					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State"
-					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Exit");
+					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Sort By Name\n12. Exit");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==11) 
+			if(choice==12) 
 				break;
 			
 			switch(choice) {
@@ -118,6 +118,10 @@ public class AddressBookMain {
             case 10:
             	Map<String, Long> stateCount = book.getContactsByState();
             	stateCount.forEach((s, cnt)-> System.out.println(s+" : "+cnt+" persons"));
+            	break;
+            case 11:
+            	List<Contact> sortedByName = book.getContactSortedByName();
+            	sortedByName.forEach(System.out::println);
             	break;
 			}
 		}

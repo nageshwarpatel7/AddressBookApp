@@ -79,4 +79,7 @@ public class AddressBook {
 	public Map<String, Long> getContactsByState(){
 		return contacts.stream().collect(Collectors.groupingBy(c->c.getState(), Collectors.counting()));
 	}
+	public List<Contact> getContactSortedByName(){
+		return contacts.stream().sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)).toList();
+	}
 }

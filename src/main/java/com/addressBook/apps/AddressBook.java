@@ -19,6 +19,10 @@ public class AddressBook {
 		System.out.println("Contact added successfully");
 	}
 	public void displayContact() {
+		if(contacts.isEmpty()) {
+			System.out.println("No contacts available");
+			return;
+		}
 		for(Contact c: contacts) {
 			System.out.println(c);
 		}
@@ -53,6 +57,13 @@ public class AddressBook {
 			}
 		}
 		System.out.println("User not found");
+	}
+	public List<Contact> searchContactByCity(String city){
+		List<Contact> ans = contacts.stream().filter(c->c.getCity().equalsIgnoreCase(city)).toList();
+		return ans;
+	}
+	public List<Contact> searchContactByState(String state){
+		return contacts.stream().filter(c->c.getState().equalsIgnoreCase(state)).toList();
 	}
 		
 }

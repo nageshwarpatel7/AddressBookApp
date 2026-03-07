@@ -53,11 +53,12 @@ public class AddressBookMain {
 			System.out.println("1.Add Contact\n2. Edit Contact\n3. Delete Contact\n4. View All\n5. Search By City"
 					+ "\n6. Search By State\n7. View Person By City\n8. View Person By State"
 					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Sort By Name"
-					+ "\n12. Sort By City\n13. Sort By State\n14. Sort By Zip\n15. Exit");
+					+ "\n12. Sort By City\n13. Sort By State\n14. Sort By Zip"
+					+ "\n15. Save Contacts To File\n16. Load Contacts From File\n17. Exit");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==15) 
+			if(choice==17) 
 				break;
 			
 			switch(choice) {
@@ -135,6 +136,13 @@ public class AddressBookMain {
             case 14:
             	List<Contact> sortedByZip = book.getContactSortedByZip();
             	sortedByZip.forEach(System.out::println);
+            	break;
+            case 15:
+            	book.writeContactToFile("contacts.txt");
+            	break;
+            case 16:
+            	book.readContactFile("contacts.txt");
+            	break;
 			}
 		}
 	}

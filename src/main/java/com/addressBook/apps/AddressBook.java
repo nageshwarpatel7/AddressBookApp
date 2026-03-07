@@ -1,11 +1,17 @@
 package com.addressBook.apps;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 import com.addressBook.apps.model.Contact;
 
@@ -110,6 +116,7 @@ public class AddressBook {
 		}
 	}
 	public void readContactFile(String filePath) {
+		contacts.clear();
 		try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
 			String line;
 			while((line = br.readLine())!=null) {
@@ -123,6 +130,49 @@ public class AddressBook {
 			System.out.println("Contacts loaded from file");
 		}
 		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void writeContactsToCSVFile(String filePath) {
+		try(CSVWriter writer = new CSVWriter(new FileWriter(filePath))){
+			String[] header = {"FirstName", "LastName", "Address", "City",
+					"State", "Zip", "PhoneNumber", "Email"
+			};
+			writer.writeNext(header);
+			
+			for(Contact c:contacts) {
+				String[] data = {
+						c.getFirstName(), c.getLastName(),
+						c.getAddress(), c.getCity(),
+						c.getState(), c.getZip(),
+						c.getPhoneNumber(), c.getEmail()
+				};
+				
+				writer.writeNext(data);
+			}
+			System.out.println("Contacts saved to csv file");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void readContactsToCSVFile(String filePath) {
+		contacts.clear();
+		try(CSVReader reader = new CSVReader(new FileReader(filePath))){
+			String[]  line;
+			reader.readNext();
+			while((line=reader.readNext())!=null) {
+				if(line.length!=8) continue;
+				Contact c= new Contact(line[0], line[1],
+						line[2], line[3], line[4], line[5], line[6], line[7]);
+				contacts.add(c);
+			}
+			System.out.println("Contacts loaded from CSV");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch(CsvValidationException e) {
 			e.printStackTrace();
 		}
 	}

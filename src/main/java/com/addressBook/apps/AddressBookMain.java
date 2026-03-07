@@ -55,11 +55,12 @@ public class AddressBookMain {
 					+ "\n9. Get Contact Count By City\n10. Get Contact Count By State\n11. Sort By Name"
 					+ "\n12. Sort By City\n13. Sort By State\n14. Sort By Zip"
 					+ "\n15. Save Contacts To File\n16. Load Contacts From File\n17. Save Contacts to CSV File"
-					+ "\n18. Load Contacts from CSV File\n19. Exit");
+					+ "\n18. Load Contacts from CSV File\n19. Save contacts to Json File"
+					+ "\n20.Load contacts from JSON file\n21. Exit");
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			if(choice==19) 
+			if(choice==21) 
 				break;
 			
 			switch(choice) {
@@ -150,6 +151,13 @@ public class AddressBookMain {
             case 18:
             	book.readContactsToCSVFile("contacts.csv");
             	break;
+            case 19:
+                book.writeContactsToJSONFile("contacts.json");
+                break;
+
+            case 20:
+                book.readContactsFromJSONFile("contacts.json");
+                break;
 			}
 		}
 	}

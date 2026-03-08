@@ -16,7 +16,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
+
 import com.addressBook.apps.model.Contact;
+import com.addressBook.database.*;
 
 public class AddressBook {
 	private List<Contact> contacts = new ArrayList<>(); //Helps to add multiple person in the Address book App
@@ -202,6 +205,27 @@ public class AddressBook {
 			System.out.println("Contacts loaded from JSON");
 		}
 		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void writeContactsToDatabase(String addresBookName) {
+		for(Contact c: contacts) {
+			DatabaseOperation.add(c, addresBookName);
+		}
+		System.out.println("Contacts successfully added to database");
+	}
+	public void readFromDatabase(String addressBookName) {
+		try {
+			contacts.clear();
+			contacts.addAll(DatabaseOperation.getAll(addressBookName));
+			
+			System.out.println("Contacs loaded from database");
+			
+			for(Contact c: contacts) {
+				System.out.println(c);
+			}
+		}
+		catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}

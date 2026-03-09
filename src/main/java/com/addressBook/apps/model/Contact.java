@@ -1,6 +1,8 @@
 package com.addressBook.apps.model;
 
 import java.util.Objects;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Contact {
 	private String firstName;
@@ -11,6 +13,7 @@ public class Contact {
 	private String zip;
 	private String phoneNumber;
 	private String email;
+	private LocalDate dateAdded;
 	public Contact() {
 		
 	}
@@ -25,6 +28,7 @@ public class Contact {
 		this.zip = zip;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.dateAdded =LocalDate.now();
 	}
 	public String getFirstName() {
 		return firstName;
@@ -50,10 +54,14 @@ public class Contact {
 	public String getEmail() {
 		return email;
 	}
+	public LocalDate getDateAdded() {
+		return dateAdded;
+	}
 	@Override
 	public String toString() {
 		return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+				+ ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email
+				+ ", dateAdded=" + dateAdded + "]";
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -79,6 +87,9 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public void setDate(Date date) {
+		this.dateAdded = LocalDate.parse(date.toString());
+	}	
 	
 	@Override
 	public boolean equals(Object obj) {

@@ -70,14 +70,18 @@ public class AddressBookMain {
 				book.addContact(getContactFromConsole());
 				break;
 			case 2:
-				System.out.println("Enter full name to edit: ");
-				String name = sc.nextLine();
-				
-				System.out.println("Enter updated details separated by ':'");
-				System.out.println("Format: firstName:lastName:address:city:state:zip:phone:email");
-				String data = sc.nextLine();
-				book.update(name, data);
-				break;
+
+			    System.out.println("Enter full name to edit:");
+			    String name = sc.nextLine();
+
+			    System.out.println("Enter updated details separated by ':'");
+			    System.out.println("Format: firstName:lastName:address:city:state:zip:phone:email");
+
+			    String data = sc.nextLine();
+
+			    book.update(name, data, bookName);
+
+			    break;
 			case 3:
 				System.out.print("Enter full name to delete: ");
                 book.deleteContact(sc.nextLine()); 

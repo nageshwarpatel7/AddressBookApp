@@ -44,25 +44,35 @@ public class AddressBook {
 			System.out.println(c);
 		}
 	}
-	public void update(String name, String s) {
-		String info[] = s.split(":");
-		if(info.length!=8) {
-			throw new IllegalArgumentException("Invalid Input");
-		}
-		for(Contact c:contacts) {
-			if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
-				c.setFirstName(info[0]);
-				c.setLastName(info[1]);
-				c.setAddress(info[2]);
-				c.setCity(info[3]);
-				c.setState(info[4]);
-				c.setZip(info[5]);
-				c.setPhoneNumber(info[6]);
-				c.setEmail(info[7]);
-				return;
-			}
-		}
-		System.out.println("User not found");		
+	public void update(String name, String data, String addressBookName) {
+
+	    String info[] = data.split(":");
+
+	    if(info.length != 8)
+	        throw new IllegalArgumentException("Invalid Input");
+
+	    for(Contact c : contacts) {
+
+	        if(name.equalsIgnoreCase(c.getFirstName()+" "+c.getLastName())) {
+
+	            c.setFirstName(info[0]);
+	            c.setLastName(info[1]);
+	            c.setAddress(info[2]);
+	            c.setCity(info[3]);
+	            c.setState(info[4]);
+	            c.setZip(info[5]);
+	            c.setPhoneNumber(info[6]);
+	            c.setEmail(info[7]);
+
+	            DatabaseOperation.update(c, addressBookName);
+
+	            syncWithDatabase(c.getFirstName(), c.getLastName(), addressBookName);
+
+	            return;
+	        }
+	    }
+
+	    System.out.println("User not found");
 	}
 	
 	public  void deleteContact(String name) {
@@ -228,5 +238,26 @@ public class AddressBook {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public void syncWithDatabase(String fname, String lname, String addressBook) {
+
+	    Contact dbContact =
+	    DatabaseOperation.getPerson(fname, lname, addressBook);
+	    if(dbContact ==null) {
+	    	System.out.println("Contact not found in database");
+	    	return;
+	    }
+
+	    for(Contact c : contacts){
+
+	        if(c.getFirstName().equalsIgnoreCase(fname) &&
+	           c.getLastName().equalsIgnoreCase(lname)){
+
+	            if(c.equals(dbContact))
+	                System.out.println("Memory and Database are in Sync");
+	            else
+	                System.out.println("Memory and Database are NOT in Sync");
+	        }
+	    }
 	}
 }

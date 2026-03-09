@@ -87,8 +87,14 @@ public class Contact {
 		
 		Contact c = (Contact) obj;
 		
-		return firstName.equalsIgnoreCase(c.getFirstName())
-				&& lastName.equalsIgnoreCase(c.getLastName());
+		return firstName.equalsIgnoreCase(c.firstName)
+	            && lastName.equalsIgnoreCase(c.lastName)
+	            && Objects.equals(address, c.address)
+	            && Objects.equals(city, c.city)
+	            && Objects.equals(state, c.state)
+	            && Objects.equals(zip, c.zip)
+	            && Objects.equals(phoneNumber, c.phoneNumber)
+	            && Objects.equals(email, c.email);
 	}
 	
 	@Override

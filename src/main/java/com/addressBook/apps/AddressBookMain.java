@@ -9,7 +9,8 @@ public class AddressBookMain {
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		System.out.println("Welcome to Address Book System");
+		System.out.println("Welcome to Address Book"
+				+ " System");
 		
 		while(true) {
 			System.out.println("\n1. Add New Address Book");
